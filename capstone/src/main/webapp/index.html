@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="script.js"> </script>
+    <meta name="google-signin-client_id" content="1002281613740-sgvmj9ep5l4ef3fngdkmn7ru5dnc7668.apps.googleusercontent.com">
+  </head>
+  <body>
+    <div id="content">
+      <h1>My Portfolio</h1>
+      <p>This is my portfolio.</p>
+      <p>Click here to get a random message:</p>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      <button onclick="addRandomGreeting()">Hello</button>
+      <div id="greeting-container"></div>
+
+      <button onclick="myInfo()">Click me</button>
+
+      <a href="#" onclick="signOut();">Sign out</a>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
+    </div>
+  </body>
+</html>
