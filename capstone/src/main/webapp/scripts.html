@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Google Apps Script API Quickstart</title>
+    <title>Tester</title>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
   </head>
   <body>
-    <p>Google Apps Script API Quickstart</p>
+    <p>Scripts Tester</p>
 
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" style="display: none;">Authorize</button>
@@ -106,7 +106,18 @@
        * Call the Apps Script API to create a new script project, upload files
        * to the project, and log the script's URL to the user.
        */
+
       function callAppsScript() {
+        var test = gapi.client.script.projects.create({
+            resource: {
+                title: 'My Script'
+            }
+        });
+        
+        console.log(test);
+      }
+      
+      /*function callAppsScript() {
         gapi.client.script.projects.create({
           resource: {
             title: 'My Script'
@@ -138,7 +149,7 @@
           console.log("HERE_3");
           return console.log(`The API returned an error: ${error}`);
         });
-      }
+      }*/
 
     </script>
 
