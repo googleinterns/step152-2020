@@ -69,4 +69,10 @@ function signOut() {
     });
 }
 
-f
+function callTestScript(){
+    console.log("Calling Test Script");
+    fetch("https://script.google.com/a/google.com/macros/s/AKfycbyOjbVXWTdkgMUWYvnzO2FeAgoXHBhbdim3zX4jWnDFefbih1U/exec").then(
+        response => response.json()).then((url) => {
+            console.log(url)
+    });
+}

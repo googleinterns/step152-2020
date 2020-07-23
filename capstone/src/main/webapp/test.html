@@ -136,6 +136,7 @@
         }).catch((error) => {
           // The API encountered a problem.
           console.log("HERE_3");
+          console.log(JSON.stringify(error));
           return console.log(`The API returned an error: ${error}`);
         });
       }
