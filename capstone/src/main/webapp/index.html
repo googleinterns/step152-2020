@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <meta name="google-signin-client_id" content="914921573408-mnpm4t2hsn4mbvjkjho6qrsmbe10lkt6.apps.googleusercontent.com">
   </head>
   <body>
-      Hello World!
+      <div id="content">
+          <p><h1> Login Page </h1></p>
+
+          <br>
+
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+          <br>
+
+          <a href="#" onclick="signOut()">Sign out</a>
+      </div>
   </body>
 </html>

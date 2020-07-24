@@ -12,34 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
-
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
-}
-
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
   var id_token = googleUser.getAuthResponse().id_token;
-  console.log(profile);
-  console.log(id_token);
 
-  var xhr = new XMLHttpRequest();
+  console.log("Signed in as: " + profile.getEmail());
+
+  /*var xhr = new XMLHttpRequest();
   xhr.open('POST', '/auth');
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.onload = function() {
     console.log('Signed in as: ' + xhr.responseText);
   };
-  xhr.send('idtoken=' + id_token);
+  xhr.send('idtoken=' + id_token);*/
   
   /*
   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -69,7 +54,9 @@ function signOut() {
     });
 }
 
-function callTestScript(){
+//TODO
+
+/*function callTestScript(){
     console.log("Calling Test Script");
     fetch("https://script.google.com/a/google.com/macros/s/AKfycbyOjbVXWTdkgMUWYvnzO2FeAgoXHBhbdim3zX4jWnDFefbih1U/exec").then(
         response => response.json()).then((url) => {
@@ -94,7 +81,7 @@ function callTestScript(){
       /**
        *  On load, called to load the auth2 library and API client library.
        */
-      function handleClientLoad() {
+    /*function handleClientLoad() {
         gapi.load('client:auth2', initClient);
       }
 
@@ -102,7 +89,7 @@ function callTestScript(){
        *  Initializes the API client library and sets up sign-in state
        *  listeners.
        */
-      function initClient() {
+    /*function initClient() {
         gapi.client.init({
           apiKey: API_KEY,
           clientId: CLIENT_ID,
@@ -114,11 +101,11 @@ function callTestScript(){
         }, function(error) {
           console.log(JSON.stringify(error, null, 2));
         });
-      }
+      }*/
 
 
 
-function callScriptFunction() {
+/*function callScriptFunction() {
   var scriptId = "MbD62Unoj4HJEpa_WgFlR4ScaIyW1MhlU";
 
   // Call the Apps Script API run method
@@ -172,4 +159,4 @@ function callScriptFunction() {
       }
     }
   });
-}
+}*/
