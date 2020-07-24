@@ -16,15 +16,15 @@
 
     <script type="text/javascript">
       // Client ID and API key from the Developer Console
-      var CLIENT_ID = '914921573408-mnpm4t2hsn4mbvjkjho6qrsmbe10lkt6.apps.googleusercontent.com';
-      var API_KEY = 'AIzaSyCibNXSiDMVZCsjXzqZxLkzjV9fSD5CqCk';
+      var CLIENT_ID = '';
+      var API_KEY = '';
 
       // Array of API discovery doc URLs for APIs used by the quickstart
-      var DISCOVERY_DOCS = ["https://script.googleapis.com/$discovery/rest?version=v1"];
+      var DISCOVERY_DOCS = [""];
 
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
-      var SCOPES = 'https://www.googleapis.com/auth/script.projects';
+      var SCOPES = '';
 
       var authorizeButton = document.getElementById('authorize_button');
       var signoutButton = document.getElementById('signout_button');
@@ -116,40 +116,6 @@
         
         console.log(test);
       }
-      
-      /*function callAppsScript() {
-        gapi.client.script.projects.create({
-          resource: {
-            title: 'My Script'
-          }
-        }).then((resp) => {
-          console.log("HERE");
-          return gapi.client.script.projects.updateContent({
-            scriptId: resp.result.scriptId,
-            resource: {
-              files: [{
-                name: 'hello',
-                type: 'SERVER_JS',
-                source: 'function helloWorld() {\n  console.log("Hello, world!");\n}'
-              }, {
-                name: 'appsscript',
-                type: 'JSON',
-                source: "{\"timeZone\":\"America/New_York\",\"" +
-                   "exceptionLogging\":\"CLOUD\"}"
-              }]
-            }
-          });
-        }).then((resp) => {
-          console.log("HERE_2");
-          let result = resp.result;
-          if (result.error) throw result.error;
-          console.log(`https://script.google.com/d/${result.scriptId}/edit`);
-        }).catch((error) => {
-          // The API encountered a problem.
-          console.log("HERE_3");
-          return console.log(`The API returned an error: ${error}`);
-        });
-      }*/
 
     </script>
 
