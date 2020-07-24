@@ -5,6 +5,12 @@
   width: 650px;
 }
 
+iframe {
+    width: 640px; 
+    height: 475px;
+    border: 0px;
+}
+
 .g-signin2 {
     display: inline-block;
 }
