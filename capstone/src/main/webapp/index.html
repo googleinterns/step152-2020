@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
+    <title>Home</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -11,15 +11,13 @@
   </head>
   <body>
       <div id="content">
-          <p><h1> Login Page </h1></p>
-
+          <p><h1>Home</h1></p>
+          <a href="form.html">Take A Quiz!</a>
+          &nbsp;&nbsp;
+          <a href='#' onclick="signOut()">Sign Out</a>
           <br>
-
+          <br>
           <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-          <br>
-
-          <a href="#" onclick="signOut()">Sign out</a>
       </div>
   </body>
 </html>
