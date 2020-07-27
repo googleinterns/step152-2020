@@ -11,10 +11,21 @@
   <body>
     <div id="content">
       <p><h1>Quiz</h1></p>
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScrpUcq5Jnv6knV6K3aexWa1m972EmMzHJUvXulHCfBsJaEpw/viewform?embedded=true">Loading…</iframe>
-      <br>
-      <br>
-      <a href="https://docs.google.com/forms/d/1JAOSyrHmloNFiUibqhMLRQj1qcDDhHr0-nDhZ2ouQJM/edit"> For Teacher </a> 
+      <button id="authorize_button" style="display: none;">Authorize</button>
+      <button id="signout_button" style="display: none;">Sign Out</button>
+      <button onclick="callScriptFunction()">Create Form </button>
     </div>
+    
+
+
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+    <script src = "form-loader.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
   </body>
 </html>
+
+    
+

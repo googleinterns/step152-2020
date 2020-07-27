@@ -1,25 +1,18 @@
 package com.google.sps.data;
 import java.io.*;
 
-//TODO implement isPublished()
-
-/**public Entity toDatastoreEntity(){
-        Entity commentEntity = new Entity("Comment");
-        commentEntity.setProperty("name", name);
-        commentEntity.setProperty("content", content);
-        return commentEntity;
-    }*/
-
 public class Form {
 
     private String editURL;
     private String URL;
     private int id;
+    private boolean isPublished;
 
     public Form(String editURL, String URL, int id) {
         this.editURL = editURL;
         this.URL = URL;
         this.id = id;
+        this.isPublished = false;
     }
 
     public String getEditURL() {
@@ -35,6 +28,14 @@ public class Form {
     }
 
     public boolean isPublished() {
-        // TODO
+        return this.isPublished;
+    }
+
+    public void publish(){
+        this.isPublished = true;
+    }
+
+    public void unpublished(){
+        this.isPublished = false;
     }
 }
