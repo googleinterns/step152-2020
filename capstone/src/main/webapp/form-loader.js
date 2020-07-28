@@ -86,7 +86,7 @@ function appendPre(message) {
 
 function callScriptFunction() {
   var scriptId = "1Z_td2xr1Hq9loDzSdojcCS_3qFwKJR3apBuR2zmcyUVpdhqvfJWyMMYZ";
-
+  
   // Call the Apps Script API run method
   //   'scriptId' is the URL parameter that states what script to run
   //   'resource' describes the run request body (with the function name
@@ -126,17 +126,20 @@ function callScriptFunction() {
         }
       }
     } else {
-      console.log(result); 
+      console.log("Result :" + result); 
 
-      var formData = JSON.stringify(result.response.result);
-
-      return fetch("/form-handler", {
-          method: "POST",
-          body: formData
-      });
+      formData = JSON.stringify(result.response.result);
 
     }
-  });
+  }).then((e) => {
+    console.log(e);
+    console.log("formData :" + formData);
+    fetch("/form-handler", {method: "POST", body: formData}).then(function() {
+        console.log("ok");
+    }).catch(function() {
+        console.log("error");
+    });
+   });
 }
 
 

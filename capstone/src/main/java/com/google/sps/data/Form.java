@@ -1,5 +1,6 @@
 package com.google.sps.data;
 import java.io.*;
+import com.google.appengine.api.datastore.Entity;
 
 public class Form {
 
@@ -37,5 +38,13 @@ public class Form {
 
     public void unpublished(){
         this.isPublished = false;
+    }
+    
+    public Entity toDatastoreEntity(){
+        Entity formEntity = new Entity("Form");
+        formEntity.setProperty("editURL", this.editURL);
+        formEntity.setProperty("URL", this.URL);
+        formEntity.setProperty("id", this.id);
+        return formEntity;
     }
 }
