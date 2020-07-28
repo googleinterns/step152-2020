@@ -5,42 +5,39 @@ import com.google.sps.data.Student;
 import com.google.sps.data.Form;
 import java.util.ArrayList;
 import java.util.List;
-
-
-// TODO: When auth is complete change all strings to integers for access tokens
+import java.util.Random; 
 
 public class Classroom {
 
-    String teacher;
-    List<Student> students = new ArrayList<>();
-    List<Form> forms = new ArrayList<>();
-    String subject;
+    private Teacher teacher;
+    private List<Student> students = new ArrayList<>();
+    private List<Form> forms = new ArrayList<>();
+    private String subject;
+    private Key key;
 
-    public Classroom(String teacher, List<Student> students, List<Form> forms, String subject) {
+    public Classroom(Teacher teacher, List<Student> students, List<Form> forms, String subject, Key key) {
         this.teacher = teacher;
         this.students = students;
         this.forms = forms;
         this.subject = subject;
+        this.key = key;
     }
 
-    public void addStudent(Student student) {
-        students.add(student);
+    // Setters
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
-    public void addForm(Form form) {
-        forms.add(form);
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public boolean isStudentInClass(Student student) {
-
-        if (students.lastIndexOf(student) == -1) {
-            return false;
-        } else {
-            return true;
-        }
+    public void setKey(Key key) {
+        this.key = key;
     }
 
-    public String getTeacher() {
+    // Getters
+    public Teacher getTeacher() {
         return this.teacher;
     }
 
@@ -54,5 +51,33 @@ public class Classroom {
 
     public List<Form> getForms() {
         return this.forms;
+    }
+
+    public Key getKey() {
+        assert this.key.getId() != -1: "The key doesn't exist.";
+        return this.key;
+    }
+
+    // Database
+    public void addStudent(Student student) { 
+        students.add(student);
+    }
+
+    public void addForm(Form form) {
+        forms.add(form);
+    }
+
+    public void removeStudent(Student student) {
+        this.students.remove(student);
+    }
+
+    public boolean isStudentInClass(Student student) {
+        assert students.size() > 0: "There are no students in this class!";
+
+        if (students.lastIndexOf(student) == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

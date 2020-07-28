@@ -14,8 +14,11 @@
 
 package com.google.sps.servlets;
 
+// Entity id? --> levels of normalization --> make sure it's more normalized and not just a copy
+// decide if I need a copy or a reference... understand the differences
+
 import java.io.IOException;
-import com.google.appengine.api.datastore.DatastoreService;
+/*import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -23,7 +26,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 import com.google.sps.data.User;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List;*/
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -60,4 +63,11 @@ public class LoginServlet extends HttpServlet {
 
     response.sendRedirect("/form.html");*/
   }
+
+  /*public Entity toDatastoreEntity(){
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("name", name);
+    commentEntity.setProperty("content", content);
+    return commentEntity;
+  }*/
 }
