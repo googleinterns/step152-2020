@@ -40,4 +40,12 @@ public class Form {
     public boolean isPublished() {
         return this.isPublished;
     }
+
+    public Entity toDatastoreEntity(){
+        Entity formEntity = new Entity("Form");
+        formEntity.setProperty("editURL", editURL);
+        formEntity.setProperty("URL", URL);
+        formEntity.setProperty("id", id);
+        return formEntity;
+    }
 }

@@ -80,4 +80,14 @@ public class Classroom {
             return true;
         }
     }
+
+    public Entity toDatastoreEntity(){
+        Entity classroomEntity = new Entity("Classroom");
+        classroomEntity.setProperty("teacher", teacher);
+        classroomEntity.setProperty("students", students);
+        classroomEntity.setProperty("forms", forms);
+        classroomEntity.setProperty("subject", subject);
+        classroomEntity.setProperty("key", key);
+        return classroomEntity;
+    }
 }

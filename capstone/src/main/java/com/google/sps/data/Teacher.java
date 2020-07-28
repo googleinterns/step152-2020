@@ -59,5 +59,14 @@ public class Teacher implements User {
         System.out.println("Nickname: " + nickname);
         System.out.println("ID: " + id);
     }
+
+    public Entity toDatastoreEntity(){
+        Entity teacherEntity = new Entity("Teacher");
+        teacherEntity.setProperty("email", email);
+        teacherEntity.setProperty("classrooms", classrooms);
+        teacherEntity.setProperty("nickname", nickname);
+        teacherEntity.setProperty("id", id);
+        return teacherEntity;
+    }
 }
 

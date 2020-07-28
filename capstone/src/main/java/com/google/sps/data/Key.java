@@ -44,4 +44,12 @@ public class Key {
     public Teacher getTeacher() {
         return this.teacher;
     }
+
+    public Entity toDatastoreEntity(){
+        Entity keyEntity = new Entity("Key");
+        keyEntity.setProperty("classroom", classroom);
+        keyEntity.setProperty("teacher", teacher);
+        keyEntity.setProperty("id", id);
+        return keyEntity;
+    }
 }
