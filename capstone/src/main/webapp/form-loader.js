@@ -126,14 +126,15 @@ function callScriptFunction() {
         }
       }
     } else {
-      console.log("Result :" + result); 
+      console.log("Result :" , result); 
 
-      formData = JSON.stringify(result.response.result);
+      formData = result.response.result;
 
     }
   }).then((e) => {
     console.log(e);
     console.log("formData :" + formData);
+    formData = JSON.stringify(formData);
     fetch("/form-handler", {method: "POST", body: formData}).then(function() {
         console.log("ok");
     }).catch(function() {
