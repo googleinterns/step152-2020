@@ -62,10 +62,10 @@ public class Teacher implements User {
 
     public Entity toDatastoreEntity(){
         Entity teacherEntity = new Entity("Teacher");
-        teacherEntity.setProperty("email", this.email);
-        teacherEntity.setProperty("classrooms", this.classrooms);
-        teacherEntity.setProperty("nickname", this.nickname);
-        teacherEntity.setProperty("id", this.id);
+        teacherEntity.setProperty("email", email);
+        teacherEntity.setProperty("classrooms", classrooms);
+        teacherEntity.setProperty("nickname", nickname);
+        teacherEntity.setProperty("id", id);
         return teacherEntity;
     }
 }

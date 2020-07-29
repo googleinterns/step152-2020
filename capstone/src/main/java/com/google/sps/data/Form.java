@@ -43,9 +43,9 @@ public class Form {
 
     public Entity toDatastoreEntity(){
         Entity formEntity = new Entity("Form");
-        formEntity.setProperty("editURL", this.editURL);
-        formEntity.setProperty("URL", this.URL);
-        formEntity.setProperty("id", this.id);
+        formEntity.setProperty("editURL", editURL);
+        formEntity.setProperty("URL", URL);
+        formEntity.setProperty("id", id);
         return formEntity;
     }
 }
