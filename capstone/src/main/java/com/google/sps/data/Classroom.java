@@ -83,11 +83,11 @@ public class Classroom {
 
     public Entity toDatastoreEntity(){
         Entity classroomEntity = new Entity("Classroom");
-        classroomEntity.setProperty("teacher", teacher);
-        classroomEntity.setProperty("students", students);
-        classroomEntity.setProperty("forms", forms);
-        classroomEntity.setProperty("subject", subject);
-        classroomEntity.setProperty("key", key);
+        classroomEntity.setProperty("teacher", this.teacher);
+        classroomEntity.setProperty("students", this.students);
+        classroomEntity.setProperty("forms", this.forms);
+        classroomEntity.setPrgitoperty("subject", this.subject);
+        classroomEntity.setProperty("key", this.key);
         return classroomEntity;
     }
 }

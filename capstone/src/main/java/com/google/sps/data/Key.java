@@ -47,9 +47,9 @@ public class Key {
 
     public Entity toDatastoreEntity(){
         Entity keyEntity = new Entity("Key");
-        keyEntity.setProperty("classroom", classroom);
-        keyEntity.setProperty("teacher", teacher);
-        keyEntity.setProperty("id", id);
+        keyEntity.setProperty("classroom", this.classroom);
+        keyEntity.setProperty("teacher", this.teacher);
+        keyEntity.setProperty("id", this.id);
         return keyEntity;
     }
 }
