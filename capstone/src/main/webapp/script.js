@@ -18,7 +18,7 @@ function onSignIn(googleUser) {
   console.log(profile.getEmail() + " has signed in!");
 }
 
-function myInfo(){
+function printOauthProfile(){
     var auth2 = gapi.auth2.getAuthInstance();
     if (auth2.isSignedIn.get()) {
         var profile = auth2.currentUser.get().getBasicProfile();
