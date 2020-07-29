@@ -5,6 +5,8 @@ import com.google.sps.data.Classroom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random; 
+import com.google.appengine.api.datastore.Entity;
+
 
 public class Key {
 
@@ -47,9 +49,9 @@ public class Key {
 
     public Entity toDatastoreEntity(){
         Entity keyEntity = new Entity("Key");
-        keyEntity.setProperty("classroom", classroom);
-        keyEntity.setProperty("teacher", teacher);
-        keyEntity.setProperty("id", id);
+        keyEntity.setProperty("classroom", this.classroom);
+        keyEntity.setProperty("teacher", this.teacher);
+        keyEntity.setProperty("id", this.id);
         return keyEntity;
     }
 }

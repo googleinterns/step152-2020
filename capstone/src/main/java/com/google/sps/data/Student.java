@@ -5,6 +5,8 @@ import com.google.sps.data.Classroom;
 import com.google.sps.data.User;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.appengine.api.datastore.Entity;
+
 
 public class Student implements User {
 
@@ -56,10 +58,10 @@ public class Student implements User {
 
     public Entity toDatastoreEntity(){
         Entity studentEntity = new Entity("Student");
-        studentEntity.setProperty("email", email);
-        studentEntity.setProperty("classrooms", classrooms);
-        studentEntity.setProperty("nickname", nickname);
-        studentEntity.setProperty("id", id);
+        studentEntity.setProperty("email", this.email);
+        studentEntity.setProperty("classrooms", this.classrooms);
+        studentEntity.setProperty("nickname", this.nickname);
+        studentEntity.setProperty("id", this.id);
         return studentEntity;
     }
 }
