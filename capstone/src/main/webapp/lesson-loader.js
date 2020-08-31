@@ -116,7 +116,7 @@ function getModal(lesson) {
     const modalElement = document.getElementById("modal-container");
     modalElement.innerHTML = "";
     if (type == FORM) {
-        console.log("TODO: Add in future PR");
+        modalElement.appendChild(createFormDivElement(lesson));
     } else if (type == IMAGE) {
         console.log("TODO: Add in future PR");
     } else if (type == VIDEO) {
@@ -170,5 +170,18 @@ function createContentDivElement(lesson) {
     for (url of lesson.entity.propertyMap.urls) {
         doc.getElementById("modal-urls").appendChild(createHyperLink(url));
     }
+    return doc.body;
+}
+
+function createFormDivElement(lesson) {
+    let domparser = new DOMParser();
+    let doc = domparser.parseFromString(`
+        <div id="modal-form-description"></div>
+        <div id="modal-title"><span>Form</span></div>
+        <a id="modal-form-url"></a
+    `, "text/html");
+    doc.getElementById("modal-form-description").innerHTML = capitalizeFLetter(lesson.entity.propertyMap.description);
+    doc.getElementById("modal-form-url").href = lesson.entity.propertyMap.url;
+    doc.getElementById("modal-form-url").innerHTML = "Click Here";
     return doc.body;
 }
