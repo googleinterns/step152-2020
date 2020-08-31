@@ -90,12 +90,22 @@ function getJoinStatus() {
     return action;
 }
 
+function createHyperLink(url) {
+    let domparser = new DOMParser();
+    let doc = domparser.parseFromString(`
+        <a id="object-url"></a>
+    `, "text/html");
+    doc.getElementById("object-url").href = url;
+    doc.getElementById("object-url").innerHTML = url;
+    return doc.body;
+}
+
 function getLessons() {
     fetch(queryString, {method: "GET", headers: new Headers({ID_TOKEN})}).then(response => response.json()).then((lessonsList) => {
         const lessonElement = document.getElementById("lesson-container");
         lessonElement.innerHTML = "";
         for (lesson of lessonsList) {
-            lessonElement.appendChild(createLessonDivElement(lesson));
+            lessonElement.appendChild(createLessonCardDivElement(lesson));
         };
     });
 }
@@ -112,11 +122,11 @@ function getModal(lesson) {
     } else if (type == VIDEO) {
         modalElement.appendChild(createVideoDivElement(lesson));
     } else if (type == CONTENT) {
-        console.log("TODO: Add in future PR");
+        modalElement.appendChild(createContentDivElement(lesson));
     }
 }
 
-function createLessonDivElement(lesson) {
+function createLessonCardDivElement(lesson) {
     let domparser = new DOMParser();
     let doc = domparser.parseFromString(`
         <div class="card border-danger margin margin-left">
@@ -145,5 +155,20 @@ function createVideoDivElement(lesson) {
         <iframe id="player" type="text/html" frameborder="0" allowfullscreen></iframe>
     `, "text/html");
     doc.getElementById("player").src = videoPath + new URL(lesson.entity.propertyMap.url).searchParams.get("v");
+    return doc.body;
+}
+
+function createContentDivElement(lesson) {
+    let domparser = new DOMParser();
+    let doc = domparser.parseFromString(`
+        <div id="modal-content"></div>
+        <div class="small-spacing-bottom"></div>
+        <div id="modal-title"><span>Link(s)</span></div>
+        <p><div id="modal-urls"></div></p>
+    `, "text/html");
+    doc.getElementById("modal-content").innerHTML = capitalizeFLetter(lesson.entity.propertyMap.content);
+    for (url of lesson.entity.propertyMap.urls) {
+        doc.getElementById("modal-urls").appendChild(createHyperLink(url));
+    }
     return doc.body;
 }

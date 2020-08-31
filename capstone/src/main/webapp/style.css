@@ -162,6 +162,19 @@ li {
     margin-right: 10px;
 }
 
+#modal-title {
+   width: 100%; 
+   text-align: center; 
+   border-bottom: 1px solid #000; 
+   line-height: 0.1em;
+   margin: 10px 0 20px; 
+} 
+
+#modal-title span { 
+    background:#fff; 
+    padding:0 10px; 
+}
+
 .navbar {
     padding-top: 15px;
     padding-bottom: 15px;

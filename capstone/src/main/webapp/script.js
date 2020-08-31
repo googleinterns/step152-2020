@@ -35,7 +35,7 @@ function getDescription(object) {
     if (object.entity.propertyMap.description == "") {
         return "";
     }
-    return "Description: " + capitalizeFLetter(lesson.entity.propertyMap.description);
+    return "Description: " + capitalizeFLetter(object.entity.propertyMap.description);
 }
 
 function capitalizeFLetter(string) { 
@@ -43,4 +43,4 @@ function capitalizeFLetter(string) {
         return "Missing Input";
     }
     return string.replace(/^./, string[0].toUpperCase()); 
-} 
+}
