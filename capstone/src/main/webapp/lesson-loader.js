@@ -7,8 +7,8 @@ const CONTENT = "content";
 const IMAGE = "image";
 
 const queryString = "/lesson?room_id=" + getRoomId() + "&action=" + getJoinStatus();
+const videoPath = "https://www.youtube.com/embed/";
 
-// Will take out any hard coded values in a future PR
 function createForm(title, description) {
     var scriptId = config.SCRIPT_ID;
 
@@ -25,7 +25,7 @@ function createForm(title, description) {
         } else if (resp.result?.error != null) {
             console.log("Script error message: " + result.error);
         } else { 
-            var formData = JSON.stringify({"type": FORM, "title": "title", "description": "description", "editUrl": resp.result.response.result.editUrl, "url": resp.result.response.result.url});          
+            var formData = JSON.stringify({"type": FORM, "title": title, "description": description, "editUrl": resp.result.response.result.editUrl, "url": resp.result.response.result.url});          
             return fetch(queryString, {method: "POST", headers: new Headers({ID_TOKEN}), body: formData});  
         }
     }).then((resp) => {
@@ -38,7 +38,7 @@ function createForm(title, description) {
 }
 
 function createVideo(title, description, url) {
-    var videoData = JSON.stringify({"type": VIDEO, "title": "title", "description": "description", "url": "url"});
+    var videoData = JSON.stringify({"type": VIDEO, "title": title, "description": description, "url": url});
     fetch(queryString, {method: "POST", headers: new Headers({ID_TOKEN}), body: videoData}).then((resp) => {
         if (resp.ok){
             getLessons();
@@ -49,7 +49,7 @@ function createVideo(title, description, url) {
 }
 
 function createImage(title, description, url) {
-    var imageData = JSON.stringify({"type": IMAGE, "title": "title", "description": "description", "url": "url"});
+    var imageData = JSON.stringify({"type": IMAGE, "title": title, "description": description, "url": url});
     fetch(queryString, {method: "POST", headers: new Headers({ID_TOKEN}), body: imageData}).then((resp) => {
         if (resp.ok){
             getLessons();
@@ -60,7 +60,7 @@ function createImage(title, description, url) {
 }
 
 function createContent(title, description, content, urls) {
-    var contentData = JSON.stringify({"type": CONTENT, "title": "title", "description": "description", "content": "content", "urls": urls.split(", ")});
+    var contentData = JSON.stringify({"type": CONTENT, "title": title, "description": description, "content": content, "urls": urls.split(", ")});
     fetch(queryString, {method: "POST", headers: new Headers({ID_TOKEN}), body: contentData}).then((resp) => {
         if (resp.ok){
             getLessons();
@@ -68,6 +68,26 @@ function createContent(title, description, content, urls) {
             alert("Error has occured");
         }
     });
+}
+
+function joinRoom() {
+    return fetch("/join?room_id=" + getRoomId() + "&action=join", {method: "POST", headers: new Headers({ID_TOKEN})}); 
+}
+
+function unjoinRoom() {
+    return fetch("/join?room_id=" + getRoomId() + "&action=unjoin", {method: "POST", headers: new Headers({ID_TOKEN})});
+}
+
+function getRoomId() {
+    return new URL(window.location.href).searchParams.get("room_id");
+}
+
+function getJoinStatus() {
+    var action = new URL(window.location.href).searchParams.get("action");
+    if (action == null) {
+        return "unjoin";
+    }
+    return action;
 }
 
 function getLessons() {
@@ -80,45 +100,50 @@ function getLessons() {
     });
 }
 
-function joinRoom() {
-    console.log("Room joined!");
-    return fetch("/join?room_id=" + getRoomId() + "&action=join", {method: "POST", headers: new Headers({ID_TOKEN})}); 
-}
-
-function unjoinRoom() {
-    console.log("User has left the room!");
-    return fetch("/join?room_id=" + getRoomId() + "&action=unjoin",
-    {method: "POST", headers: new Headers({ID_TOKEN})});
-}
-
-function getRoomId() {
-    return new URL(window.location.href).searchParams.get("room_id");
-}
-
-function getJoinStatus() {
-    var action = new URL(window.location.href).searchParams.get("action")
-    if (action == null) {
-        return "unjoin";
+function getModal(lesson) {
+    document.getElementById("modal-type").innerHTML = capitalizeFLetter(lesson.entity.propertyMap.title);
+    const type = lesson.entity.propertyMap.type;
+    const modalElement = document.getElementById("modal-container");
+    modalElement.innerHTML = "";
+    if (type == FORM) {
+        console.log("TODO: Add in future PR");
+    } else if (type == IMAGE) {
+        console.log("TODO: Add in future PR");
+    } else if (type == VIDEO) {
+        modalElement.appendChild(createVideoDivElement(lesson));
+    } else if (type == CONTENT) {
+        console.log("TODO: Add in future PR");
     }
-    return action;
 }
 
 function createLessonDivElement(lesson) {
     let domparser = new DOMParser();
     let doc = domparser.parseFromString(`
-            <div class="card border-danger margin margin-left">
-                <img class="card-img-top" src="/assets/soundwave.svg" alt="Lesson Card">
-                <div class="card-body text-center">
-                    <h5 class="card-title" id="lesson-title"></h5>
-                    <a class="card-text small-text" href="#">Kyle Smith</a>
-                    <div class="card-text small-text">Followers: Infinite</div>
-                    <div class="card-text small-text">Tag(s): </div>
-                    <div class="small-spacing-bottom"></div>
-                    <button type="button" class="btn btn-default" onclick="window.location.href='#'">Open</button>
-                </div>
+        <div class="card border-danger margin margin-left">
+            <img class="card-img-top" src="/assets/soundwave.svg" alt="Lesson Card">
+            <div class="card-body text-center">
+                <h5 class="card-title" id="lesson-title"></h5>
+                <div class="card-text small-text" id="lesson-type"></div>
+                <div class="card-text small-text" id="lesson-description"></div>
+                <div class="small-spacing-bottom"></div>
+                <button type="button" id="lesson-modal" class="btn btn-default" data-toggle="modal" data-target="#ModalCenterLessons">Open</button>
             </div>
-            `, "text/html");
-            
-    doc.getElementById("lesson-title").innerText = lesson.entity.propertyMap.title
+        </div>
+        `, "text/html");
+    doc.getElementById("lesson-title").innerText = capitalizeFLetter(lesson.entity.propertyMap.title);
+    doc.getElementById("lesson-type").innerText = capitalizeFLetter(lesson.entity.propertyMap.type);
+    doc.getElementById("lesson-description").innerText = getDescription(lesson);
+    doc.getElementById("lesson-modal").addEventListener("click", function() {
+        getModal(lesson);
+    });
+    return doc.body;
+}
+
+function createVideoDivElement(lesson) {
+    let domparser = new DOMParser();
+    let doc = domparser.parseFromString(`
+        <iframe id="player" type="text/html" frameborder="0" allowfullscreen></iframe>
+    `, "text/html");
+    doc.getElementById("player").src = videoPath + new URL(lesson.entity.propertyMap.url).searchParams.get("v");
     return doc.body;
 }

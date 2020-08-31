@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -50,13 +51,13 @@
                 </div>
                 <div class="modal-body">
                         <p> Form Information: </p>
-                        <input type="text" id="title" placeholder="Title" required>
-                        <input type="text" id="description" placeholder="Description" required>  
+                        <input type="text" id="form-title" placeholder="Title" required>
+                        <input type="text" id="form-description" placeholder="Description" required>  
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="createForm(document.getElementById('title').value, 
-                    document.getElementById('description').value)" data-dismiss="modal">Create Form</button>
+                    <button type="button" class="btn btn-primary" onclick="createForm(document.getElementById('form-title').value, 
+                    document.getElementById('form-description').value)" data-dismiss="modal">Create Form</button>
                 </div>
             </div>
         </div>
@@ -73,14 +74,14 @@
                 </div>
                 <div class="modal-body">
                         <p> Video Information: </p>
-                        <input type="text" id="title" placeholder="Title" required>
-                        <input type="text" id="description" placeholder="Description" required>  
-                        <input type="text" id="url" placeholder="URL" required>
+                        <input type="text" id="video-title" placeholder="Title" required>
+                        <input type="text" id="video-description" placeholder="Description" required>  
+                        <input type="text" id="video-url" placeholder="Youtube URL" required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="createVideo(document.getElementById('title').value, document.getElementById('description').value, 
-                    document.getElementById('url').value)" data-dismiss="modal">Create Video</button>
+                    <button type="button" class="btn btn-primary" onclick="createVideo(document.getElementById('video-title').value, document.getElementById('video-description').value, 
+                    document.getElementById('video-url').value)" data-dismiss="modal">Create Video</button>
                 </div>
             </div>
         </div>
@@ -97,14 +98,14 @@
                 </div>
                 <div class="modal-body">
                         <p> Image Information: </p>
-                        <input type="text" id="title" placeholder="Title" required>
-                        <input type="text" id="description" placeholder="Description" required>  
-                        <input type="text" id="url" placeholder="URL" required>
+                        <input type="text" id="image-title" placeholder="Title" required>
+                        <input type="text" id="image-description" placeholder="Description" required>  
+                        <input type="text" id="image-url" placeholder="URL" required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="createImage(document.getElementById('title').value, document.getElementById('description').value, 
-                    document.getElementById('url').value)" data-dismiss="modal">Create Image</button>
+                    <button type="button" class="btn btn-primary" onclick="createImage(document.getElementById('image-title').value, document.getElementById('image-description').value, 
+                    document.getElementById('image-url').value)" data-dismiss="modal">Create Image</button>
                 </div>
             </div>
         </div>
@@ -121,15 +122,15 @@
                 </div>
                 <div class="modal-body">
                         <p> Content Information: </p>
-                        <input type="text" id="title" placeholder="Title" required>
-                        <input type="text" id="description" placeholder="Description" required>  
+                        <input type="text" id="content-title" placeholder="Title" required>
+                        <input type="text" id="content-description" placeholder="Description" required>  
                         <input type="text" id="content" placeholder="Content" required>
-                        <input type="text" id="urls" placeholder="URL(s)" required>
+                        <input type="text" id="content-urls" placeholder="URL(s)" required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="createContent(document.getElementById('title').value, document.getElementById('description').value, 
-                    document.getElementById('content').value, document.getElementById('urls').value)" data-dismiss="modal">Create Content</button>
+                    <button type="button" class="btn btn-primary" onclick="createContent(document.getElementById('content-title').value, document.getElementById('content-description').value, 
+                    document.getElementById('content').value, document.getElementById('content-urls').value)" data-dismiss="modal">Create Content</button>
                 </div>
             </div>
         </div>
@@ -137,6 +138,25 @@
     
     <div class="container-fluid">
         <div id="lesson-container" class="row row-cols-1 row-cols-sm-4"></div>
+    </div>
+
+    <div class="modal fade" id="ModalCenterLessons" tabindex="-1" role="dialog" aria-labelledby="modal-type" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-type"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body clearfix">
+                        <div id="modal-container"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
  
     <script src="config.js"></script>

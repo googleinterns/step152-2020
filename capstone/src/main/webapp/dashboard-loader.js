@@ -32,6 +32,7 @@ function getRooms(type='') {
     });
 }
 
+// TODO: Update search in future PR
 function getSearchResults(type='') {
    fetch("/search?search=" + document.getElementById('search').value, {method: "GET", headers: new Headers({ID_TOKEN})}).then(response => response.json()).then((roomList) => {
         const roomElement = document.getElementById("room-container");
@@ -42,6 +43,14 @@ function getSearchResults(type='') {
     }); 
 }
 
+function followerCount(room) {
+    var count = 0
+    if (room.entity.propertyMap.followers == null) {
+        return "Follower: " + count;
+    }
+    return "Follower: " + room.entity.propertyMap.followers.length;
+}
+
 function createRoomDivElement(room) {
     let domparser = new DOMParser();
     let doc = domparser.parseFromString(`
@@ -49,8 +58,8 @@ function createRoomDivElement(room) {
                 <img class="card-img-top" src="/assets/soundwave.svg" alt="Room Card">
                 <div class="card-body text-center">
                     <h5 class="card-title" id="room-title"></h5>
-                    <a class="card-text small-text" href="#">Kyle Smith</a>
-                    <div class="card-text small-text">Followers: Infinite</div>
+                    <div class="card-text small-text" id="room-followers"></div>
+                    <div class="card-text small-text" id="room-description"></div>
                     <div class="card-text small-text">Tag(s): </div>
                     <div class="small-spacing-bottom"></div>
                     <div class="btn btn-default" id="room-link"></button>
@@ -58,7 +67,9 @@ function createRoomDivElement(room) {
             </div>
             `, "text/html");
     
-    doc.getElementById("room-title").innerText = room.entity.propertyMap.title;
+    doc.getElementById("room-title").innerText = capitalizeFLetter(room.entity.propertyMap.title);
+    doc.getElementById("room-description").innerText = getDescription(room);
+    doc.getElementById("room-followers").innerText = followerCount(room);
     doc.getElementById("room-link").addEventListener("click", function() {
         window.location.href = "lesson.html?room_id=" + room.entity.key.id;
     });

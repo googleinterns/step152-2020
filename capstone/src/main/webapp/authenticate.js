@@ -1,7 +1,7 @@
 var CLIENT_ID = config.CLIENT_ID;
 var API_KEY = config.API_KEY;
 var DISCOVERY_DOCS = ["https://script.googleapis.com/$discovery/rest?version=v1"];
-var SCOPES = 'https://www.googleapis.com/auth/forms';
+var SCOPES = "https://www.googleapis.com/auth/forms https://www.googleapis.com/auth/youtube";
 var ID_TOKEN;
 
 var [dynamicButton, signoutButton] = createDynamicSigninButton();
