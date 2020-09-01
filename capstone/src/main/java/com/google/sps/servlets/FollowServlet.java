@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.sps.data.Lesson;
 import com.google.sps.data.Room;
 import com.google.sps.data.RequestParser;
+import com.google.sps.data.CachedInterestVector;
 import com.google.sps.service.FilterService;
 import com.google.sps.service.DatabaseService;
 import com.google.sps.data.RequestParser;
@@ -62,6 +63,7 @@ public class FollowServlet extends HttpServlet {
             room.removeFollower(user);
         }
 
+        DatabaseService.save(user.getUserEntity());
         DatabaseService.save(room.getRoomEntity());
         response.setStatus(HttpServletResponse.SC_OK);
     }

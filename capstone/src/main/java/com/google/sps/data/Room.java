@@ -97,6 +97,7 @@ public class Room {
         }
         ArrayList<Key> followers = (ArrayList<Key>) this.entity.getProperty(Room.FOLLOWERS_PROPERTY_KEY);
         followers.add(follower.getUserKey());
+        CachedInterestVector.addRoomUpdateCachedInterestVector(follower, this);
     }
 
     @SuppressWarnings("unchecked")
@@ -106,6 +107,7 @@ public class Room {
         }
         ArrayList<Key> followers = (ArrayList<Key>) this.entity.getProperty(Room.FOLLOWERS_PROPERTY_KEY);
         followers.remove(follower.getUserKey());
+        CachedInterestVector.removeRoomUpdateCachedInterestVector(follower, this);
     }
 
     @SuppressWarnings("unchecked")

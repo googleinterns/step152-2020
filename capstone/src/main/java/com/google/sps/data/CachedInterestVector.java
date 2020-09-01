@@ -76,4 +76,28 @@ public class CachedInterestVector {
             vectorHashMap.put(tag, ((vectorHashMap.get(tag))/magnitude));
         }
     }
+
+    public static void addRoomUpdateCachedInterestVector(User user, Room room) {
+        HashMap<String, Double> vectorHashMap = embeddedEntityToHashMap(user.getCachedInterestVector());
+        denormalizeVectorHashMap(vectorHashMap, user.getMagnitude());
+        addTagToDenormalizedVectorHashMap(vectorHashMap, room.getAllTags());
+        
+        Double newMagnitude = magnitude(vectorHashMap);
+        renormalizeVectorHashMap(vectorHashMap, newMagnitude);
+
+        user.setMagnitude(newMagnitude);
+        user.setCachedInterestVector(hashMapToEmbeddedEntity(vectorHashMap));
+    }
+
+    public static void removeRoomUpdateCachedInterestVector(User user, Room room) {
+        HashMap<String, Double> vectorHashMap = embeddedEntityToHashMap(user.getCachedInterestVector());
+        denormalizeVectorHashMap(vectorHashMap, user.getMagnitude());
+        removeTagFromDenormalizedVectorHashMap(vectorHashMap, room.getAllTags());
+        
+        Double newMagnitude = magnitude(vectorHashMap);
+        renormalizeVectorHashMap(vectorHashMap, newMagnitude);
+
+        user.setMagnitude(newMagnitude);
+        user.setCachedInterestVector(hashMapToEmbeddedEntity(vectorHashMap));
+    }
 }

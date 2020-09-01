@@ -145,4 +145,47 @@ public final class CachedInterestVectorTest {
         Assert.assertEquals(vectorHashMap.get(Tag.COOKING.getTag()), (2.0/magnitude), epsilon);
         Assert.assertEquals(vectorHashMap.get(Tag.FITNESS.getTag()), (1.0/magnitude), epsilon);
     }
+
+    @Test
+    public void addRoomUpdateCachedInterestVectorTest() {
+        User user = new User("123" , "John");
+        Room room = new Room(user, "Piano", "Piano Lessons");
+        room.addTag(Tag.EDUCATION);
+        room.addTag(Tag.MUSIC);
+        room.addTag(Tag.ART);
+
+        CachedInterestVector.addRoomUpdateCachedInterestVector(user, room);
+
+        EmbeddedEntity embeddedVectorMap = user.getCachedInterestVector();
+        Double expectedMagnitude = Math.sqrt(3.0);
+        Assert.assertEquals(user.getMagnitude(), expectedMagnitude, epsilon);
+        Assert.assertEquals((Double) embeddedVectorMap.getProperty(Tag.EDUCATION.getTag()), (1.0/expectedMagnitude), epsilon);
+        Assert.assertEquals((Double) embeddedVectorMap.getProperty(Tag.MUSIC.getTag()), (1.0/expectedMagnitude), epsilon);
+        Assert.assertEquals((Double) embeddedVectorMap.getProperty(Tag.ART.getTag()), (1.0/expectedMagnitude), epsilon);
+    }
+    
+    @Test
+    public void removeRoomUpdateCachedInterestVectorTest() {
+        User user = new User("123" , "John");
+        Room room = new Room(user, "Piano", "Piano Lessons");
+        room.addTag(Tag.EDUCATION);
+        room.addTag(Tag.MUSIC);
+        room.addTag(Tag.ART);
+        EmbeddedEntity embeddedVectorMap = new EmbeddedEntity();
+        Double magnitude = Math.sqrt(15.0);
+        embeddedVectorMap.setProperty(Tag.EDUCATION.getTag(), (3.0/magnitude));
+        embeddedVectorMap.setProperty(Tag.MUSIC.getTag(), (2.0/magnitude));
+        embeddedVectorMap.setProperty(Tag.ART.getTag(), (1.0/magnitude));
+        user.setCachedInterestVector(embeddedVectorMap);
+        user.setMagnitude(magnitude);
+
+        CachedInterestVector.removeRoomUpdateCachedInterestVector(user, room);
+
+        EmbeddedEntity updatedEmbeddedVectorMap = user.getCachedInterestVector();
+        Double expectedMagnitude = Math.sqrt(5.0);
+        Assert.assertEquals(user.getMagnitude(), expectedMagnitude, epsilon);
+        Assert.assertEquals((Double) updatedEmbeddedVectorMap.getProperty(Tag.EDUCATION.getTag()), (2.0/expectedMagnitude), epsilon);
+        Assert.assertEquals((Double) updatedEmbeddedVectorMap.getProperty(Tag.MUSIC.getTag()), (1.0/expectedMagnitude), epsilon);
+        Assert.assertNull(updatedEmbeddedVectorMap.getProperty(Tag.ART.getTag()));
+    }
 }
