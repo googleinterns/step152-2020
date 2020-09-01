@@ -219,3 +219,11 @@ p {
   align-items: center;
   justify-content: center;
 }
+
+.form-check-input{
+    float: left;
+}
+.form-check-label {
+    display: block;
+    clear: left;
+}

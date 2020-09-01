@@ -12,6 +12,7 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Key;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
@@ -51,6 +52,10 @@ public class DashboardHandlerServlet extends HttpServlet {
 
         Room room = new Room((User) request.getAttribute(User.USER_ENTITY_NAME), 
             jobject.get(Room.TITLE_PROPERTY_KEY).getAsString(), jobject.get(Room.DESCRIPTION_PROPERTY_KEY).getAsString());
+        Iterator<JsonElement> tagIterator = jobject.get(Room.TAGS_PROPERTY_KEY).getAsJsonArray().iterator();
+        while(tagIterator.hasNext()){
+            room.addTag(tagIterator.next().getAsString());
+        }
         DatabaseService.save(room.getRoomEntity());
 
         response.setStatus(HttpServletResponse.SC_OK);
