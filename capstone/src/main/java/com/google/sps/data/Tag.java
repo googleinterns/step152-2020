@@ -42,57 +42,56 @@ public enum Tag {
     TEN_MINUTES("10:00"),
     TWENTY_MINUTES("20:00");
 
-
     private final String tag;
 
     private Tag(String tag) {
         this.tag = tag;
     }
     
-    public static final List<String> CATEGORY_TAGS = Arrays.asList(
-        Tag.EDUCATION.getTag(),
-        Tag.COOKING.getTag(),
-        Tag.FITNESS.getTag(),
-        Tag.LITERATURE.getTag(),
-        Tag.MUSIC.getTag(),
-        Tag.TECHNOLOGY.getTag(),
-        Tag.RANDOM.getTag(),
-        Tag.MISCELLANEOUS.getTag(),
-        Tag.RELIGIOUS.getTag(),
-        Tag.ANCIENT.getTag(),
-        Tag.SPACE.getTag(),
-        Tag.ROMANTIC.getTag(),
-        Tag.COMEDY.getTag(),
-        Tag.ART.getTag(),
-        Tag.BAKING.getTag(),
-        Tag.DANCING.getTag(),
-        Tag.CHALLENGE.getTag(),
-        Tag.BODY_BUILDING.getTag(),
-        Tag.DIETING.getTag(),
-        Tag.DESSERTS.getTag(),
-        Tag.ADVENTURE.getTag(),
-        Tag.MEDITATION.getTag(),
-        Tag.NEWS.getTag()
+    public static final List<Tag> CATEGORY_TAGS = Arrays.asList(
+        Tag.EDUCATION,
+        Tag.COOKING,
+        Tag.FITNESS,
+        Tag.LITERATURE,
+        Tag.MUSIC,
+        Tag.TECHNOLOGY,
+        Tag.RANDOM,
+        Tag.MISCELLANEOUS,
+        Tag.RELIGIOUS,
+        Tag.ANCIENT,
+        Tag.SPACE,
+        Tag.ROMANTIC,
+        Tag.COMEDY,
+        Tag.ART,
+        Tag.BAKING,
+        Tag.DANCING,
+        Tag.CHALLENGE,
+        Tag.BODY_BUILDING,
+        Tag.DIETING,
+        Tag.DESSERTS,
+        Tag.ADVENTURE,
+        Tag.MEDITATION,
+        Tag.NEWS
     );
 
-    public static final List<String> DIFFICULTY_TAGS = Arrays.asList(
-        Tag.EASY_DIFFICULTY.getTag(),
-        Tag.MEDIUM_DIFFICULTY.getTag(),
-        Tag.HARD_DIFFICULTY.getTag()
+    public static final List<Tag> DIFFICULTY_TAGS = Arrays.asList(
+        Tag.EASY_DIFFICULTY,
+        Tag.MEDIUM_DIFFICULTY,
+        Tag.HARD_DIFFICULTY
     );
 
-    public static final List<String> TIME_TAGS = Arrays.asList(
-        Tag.ONE_MINUTE.getTag(),
-        Tag.TWO_MINUTES.getTag(),
-        Tag.THREE_MINUTES.getTag(),
-        Tag.FOUR_MINUTES.getTag(),
-        Tag.FIVE_MINUTES.getTag(),
-        Tag.TEN_MINUTES.getTag(),
-        Tag.TWENTY_MINUTES.getTag()
+    public static final List<Tag> TIME_TAGS = Arrays.asList(
+        Tag.ONE_MINUTE,
+        Tag.TWO_MINUTES,
+        Tag.THREE_MINUTES,
+        Tag.FOUR_MINUTES,
+        Tag.FIVE_MINUTES,
+        Tag.TEN_MINUTES,
+        Tag.TWENTY_MINUTES
     );
 
-    public static List<String> all() {
-        List<String> tags = new ArrayList<>(Tag.CATEGORY_TAGS);
+    public static List<Tag> all() {
+        List<Tag> tags = new ArrayList<>(Tag.CATEGORY_TAGS);
         tags.addAll(Tag.DIFFICULTY_TAGS);
         tags.addAll(Tag.TIME_TAGS);
         return tags;
@@ -100,5 +99,14 @@ public enum Tag {
 
     public String getTag() {
         return this.tag;
+    }
+
+    public static Tag getTagFromString(String tagString) {
+        for(Tag tag : Tag.all()){
+            if(tag.getTag().equals(tagString)){
+                return tag;
+            }
+        }
+        return null;
     }
 }

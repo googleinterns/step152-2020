@@ -28,26 +28,34 @@ public class Room {
     }
 
     @SuppressWarnings("unchecked")
-    public void addTag(String tag) {
+    public void addTag(Tag tag) {
         if (this.entity.getProperty(Room.TAGS_PROPERTY_KEY) == null) {
-            this.entity.setProperty(Room.TAGS_PROPERTY_KEY, new ArrayList<>());
+            this.entity.setProperty(Room.TAGS_PROPERTY_KEY, new ArrayList<String>());
         }
         List<String> tags = (ArrayList<String>) this.entity.getProperty(Room.TAGS_PROPERTY_KEY);
-        tags.add(tag);
+        tags.add(tag.getTag());
     }
     
     @SuppressWarnings("unchecked")
-    public void removeTag(String tag) {
+    public void removeTag(Tag tag) {
+        if (this.entity.getProperty(Room.TAGS_PROPERTY_KEY) == null) {
+            return;
+        }
         ArrayList<String> tags = (ArrayList<String>) this.entity.getProperty(Room.TAGS_PROPERTY_KEY);
-        tags.remove(tag);
+        tags.remove(tag.getTag());
     }
 
     @SuppressWarnings("unchecked")
-    public List<String> getAllTags() { 
+    public List<Tag> getAllTags() { 
         if (this.entity.getProperty(Room.TAGS_PROPERTY_KEY) == null) {
-            return new ArrayList<String>();
+            return new ArrayList<Tag>();
         }
-        return (ArrayList<String>) this.entity.getProperty(Room.TAGS_PROPERTY_KEY);
+        ArrayList<String> tagStrings = (ArrayList<String>) this.entity.getProperty(Room.TAGS_PROPERTY_KEY);
+        ArrayList<Tag> tags = new ArrayList<Tag>();
+        for(String tagString : tagStrings) {
+            tags.add(Tag.getTagFromString(tagString));
+        }
+        return tags;
     }
 
     public Key getHost() {
