@@ -22,6 +22,18 @@ function getRooms() {
     });
 }
 
+function getSearchResults() {
+    fetch("/search?search=" + document.getElementById('search').value, {method: "GET", headers: new Headers({ID_TOKEN})})
+        .then(response => response.json())
+        .then((roomList) => {
+            const roomElement = document.getElementById("room-container");
+            roomElement.innerHTML = "";
+            for (room of roomList) {
+                roomElement.appendChild(createRoomDivElement(room));
+            };
+    }); 
+}
+
 function createRoomDivElement(room) {
     let domparser = new DOMParser();
     let doc = domparser.parseFromString(`

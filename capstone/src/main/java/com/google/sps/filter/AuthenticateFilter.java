@@ -30,6 +30,7 @@ import com.google.sps.data.RequestParser;
 @WebFilter("/auth-filter")
 public class AuthenticateFilter implements javax.servlet.Filter {
 
+    public static final String AUTHENTICATED_USER_ATTRIBUTE_KEY = "User";
     private static final String AUTH_HEADER_NAME = "id_token";
 
     public void init(FilterConfig filterConfig) throws ServletException{

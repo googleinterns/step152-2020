@@ -13,5 +13,6 @@
         <url-pattern>/dashboard</url-pattern>
         <url-pattern>/forms</url-pattern>
         <url-pattern>/join</url-pattern>
+        <url-pattern>/search</url-pattern>
     </filter-mapping>
 </web-app>
