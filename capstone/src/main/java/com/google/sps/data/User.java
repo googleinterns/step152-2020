@@ -46,6 +46,14 @@ public class User {
         return (EmbeddedEntity) this.delegate.getProperty(User.TAGS_PROPERTY_KEY);
     }
 
+    public void setMagnitude(Double magnitude) {
+        this.delegate.setProperty(User.MAGNITUDE_PROPERTY_KEY, magnitude);
+    }
+
+    public Double getMagnitude() {
+        return (Double) this.delegate.getProperty(User.MAGNITUDE_PROPERTY_KEY);
+    }
+
     public Entity getUserEntity() {
         return this.delegate;
     }
