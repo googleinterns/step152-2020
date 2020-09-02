@@ -43,4 +43,9 @@ public class DatabaseService {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(entity);
     }  
+
+    public static void delete(Key key) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.delete(key);
+    }
 }

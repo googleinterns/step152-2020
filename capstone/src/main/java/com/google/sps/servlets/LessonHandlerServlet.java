@@ -7,6 +7,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -64,15 +65,44 @@ public class LessonHandlerServlet extends HttpServlet {
 
     public List<Lesson> getLessons(Room room) {
         List<Lesson> lessons = new ArrayList<>();
+        List<Key> nullKeys = new ArrayList<>();
     
         try {
             for(Key key : room.getAllLessons()) {
-                lessons.add(DatabaseService.getLesson(key));
+                Boolean status = checkLessonStatus(key);
+
+                if (status) {
+                    lessons.add(DatabaseService.getLesson(key));
+                } else {
+                    nullKeys.add(key);
+                }
             }
         }
         catch (EntityNotFoundException e) {
             System.err.println("Lesson entities don't exist.");
         }
+        removeDeletedLessons(room, nullKeys);
         return lessons;
+    }
+
+    // Checks to see if the lesson still exists in datastore
+    public Boolean checkLessonStatus(Key key) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        Query query = new Query(Lesson.LESSON_ENTITY_NAME).addFilter(Entity.KEY_RESERVED_PROPERTY, FilterOperator.EQUAL, key);
+        Entity result = datastore.prepare(query).asSingleEntity();
+
+        if (result == null) {
+            return false;
+        }
+        return true;
+    }
+
+    public void removeDeletedLessons(Room room, List<Key> keys) {
+        List<Key> lessons = room.getAllLessons();
+        for (Key key : keys) {
+            lessons.remove(key);
+        }
+        room.getRoomEntity().setProperty(Room.LESSONS_PROPERTY_KEY, lessons);
+        DatabaseService.save(room.getRoomEntity());
     }
 }

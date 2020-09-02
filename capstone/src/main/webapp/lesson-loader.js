@@ -136,7 +136,8 @@ function createLessonCardDivElement(lesson) {
                 <div class="card-text small-text" id="lesson-type"></div>
                 <div class="card-text small-text" id="lesson-description"></div>
                 <div class="small-spacing-bottom"></div>
-                <button type="button" id="lesson-modal" class="btn btn-default" data-toggle="modal" data-target="#ModalCenterLessons">Open</button>
+                <button type="button" id="lesson-modal" class="btn btn-default" data-toggle="modal" data-target="#ModalCenterLessons">View</button>
+                <button type="button" id="lesson-delete" class="btn btn-default" data-toggle="modal" data-target="#ModalCenterLessonDelete">Delete</button>
             </div>
         </div>
         `, "text/html");
@@ -145,6 +146,9 @@ function createLessonCardDivElement(lesson) {
     doc.getElementById("lesson-description").innerText = getDescription(lesson);
     doc.getElementById("lesson-modal").addEventListener("click", function() {
         getModal(lesson);
+    });
+    document.getElementById("lesson-delete-button").addEventListener("click", function() {
+        deleteFromDatastore(lesson);
     });
     return doc.body;
 }

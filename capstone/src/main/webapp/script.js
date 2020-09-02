@@ -44,3 +44,14 @@ function capitalizeFLetter(string) {
     }
     return string.replace(/^./, string[0].toUpperCase()); 
 }
+
+function deleteFromDatastore(object) {
+    var keyData = JSON.stringify({"kind": object.entity.key.kind, "id": object.entity.key.id});
+    fetch("/delete", {method: "POST", headers: new Headers({ID_TOKEN}), body: keyData}).then((resp) => {
+        if (resp.ok){
+            location.reload();
+        } else {
+            alert("Error has occured");
+        }
+    });
+}

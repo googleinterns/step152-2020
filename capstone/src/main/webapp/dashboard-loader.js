@@ -62,17 +62,19 @@ function createRoomDivElement(room) {
                     <div class="card-text small-text" id="room-description"></div>
                     <div class="card-text small-text">Tag(s): </div>
                     <div class="small-spacing-bottom"></div>
-                    <div class="btn btn-default" id="room-link"></button>
+                    <div class="btn btn-default" id="room-link">Go</div>
+                    <button type="button" id="room-delete" class="btn btn-default" data-toggle="modal" data-target="#ModalCenterRoomDelete">Delete</button>
                 </div>
             </div>
             `, "text/html");
-    
     doc.getElementById("room-title").innerText = capitalizeFLetter(room.entity.propertyMap.title);
     doc.getElementById("room-description").innerText = getDescription(room);
     doc.getElementById("room-followers").innerText = followerCount(room);
     doc.getElementById("room-link").addEventListener("click", function() {
         window.location.href = "lesson.html?room_id=" + room.entity.key.id;
     });
-    doc.getElementById("room-link").innerText = "View";
+    document.getElementById("room-delete-button").addEventListener("click", function() {
+        deleteFromDatastore(room);
+    });
     return doc.body;
 }
