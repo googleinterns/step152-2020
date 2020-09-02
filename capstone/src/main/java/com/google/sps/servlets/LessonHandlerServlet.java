@@ -46,7 +46,7 @@ public class LessonHandlerServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Lesson lesson = Lesson.deserializeJson(RequestParser.parseStringFromRequest(request));
         DatabaseService.save(lesson.getLessonEntity());
-    
+
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery roomResults = datastore.prepare(new Query(Room.ROOM_ENTITY_NAME));
         Room room = null;

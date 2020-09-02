@@ -118,7 +118,7 @@ function getModal(lesson) {
     if (type == FORM) {
         modalElement.appendChild(createFormDivElement(lesson));
     } else if (type == IMAGE) {
-        console.log("TODO: Add in future PR");
+        modalElement.appendChild(createImageDivElement(lesson));
     } else if (type == VIDEO) {
         modalElement.appendChild(createVideoDivElement(lesson));
     } else if (type == CONTENT) {
@@ -129,7 +129,7 @@ function getModal(lesson) {
 function createLessonCardDivElement(lesson) {
     let domparser = new DOMParser();
     let doc = domparser.parseFromString(`
-        <div class="card border-danger margin margin-left">
+        <div class="card border border-primary margin margin-left">
             <img class="card-img-top" src="/assets/soundwave.svg" alt="Lesson Card">
             <div class="card-body text-center">
                 <h5 class="card-title" id="lesson-title"></h5>
@@ -183,5 +183,18 @@ function createFormDivElement(lesson) {
     doc.getElementById("modal-form-description").innerHTML = capitalizeFLetter(lesson.entity.propertyMap.description);
     doc.getElementById("modal-form-url").href = lesson.entity.propertyMap.url;
     doc.getElementById("modal-form-url").innerHTML = "Click Here";
+    return doc.body;
+}
+
+function createImageDivElement(lesson) {
+    let domparser = new DOMParser();
+    let doc = domparser.parseFromString(`
+        <div id="modal-image-description"></div>
+        <div class="small-spacing-bottom"></div>
+        <div id="modal-title"><span>Image</span></div>
+        <img class="img-responsive" id="image-container"></img>
+    `, "text/html");
+    doc.getElementById("modal-image-description").innerHTML = capitalizeFLetter(lesson.entity.propertyMap.description);
+    doc.getElementById("image-container").src = lesson.entity.propertyMap.url;
     return doc.body;
 }
